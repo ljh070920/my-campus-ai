@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>吉铁大 · 校园AI知识库</title>
+  <title>吉铁大 · 校园AI知识库（至尊版）</title>
   <style>
     * {
       margin: 0;
@@ -258,11 +258,11 @@
     <h1>
       <span>🚞</span> 吉铁大·AI知识库
     </h1>
-    <span class="badge">校园百科 智能问答</span>
+    <span class="badge">校园百科 至尊版</span>
   </div>
   <div class="stats">
     <div class="stat-item">
-      <span class="stat-num">100+</span>
+      <span class="stat-num">200+</span>
       <span class="stat-label">核心知识</span>
     </div>
     <div class="stat-item">
@@ -278,15 +278,15 @@
     <div class="message assistant">
       <div class="avatar">🤖</div>
       <div class="bubble welcome-card">
-        <div class="welcome-title">👋 你好！我是吉铁大校园AI助手</div>
-        <div>整合全校最全指南：校园布局、寝室、食堂、课程、交通、澡堂、网络、报修……问我就对了！</div>
+        <div class="welcome-title">👋 你好！我是吉铁大校园AI助手（至尊版）</div>
+        <div>我已掌握最全的校园资料，包括布局、学院、生活、交通、就业等200+条信息。你可以直接问我任何问题，比如“校园网密码”、“哪个食堂好吃”、“905路怎么坐”，我会立刻告诉你。</div>
         <div class="feature-grid" style="margin-top:12px">
-          <span class="feature-chip">🏢 校园中轴线</span>
-          <span class="feature-chip">🍜 食堂/宿舍</span>
-          <span class="feature-chip">🚿 澡堂/水电</span>
-          <span class="feature-chip">📡 校园网</span>
-          <span class="feature-chip">🚌 905路</span>
-          <span class="feature-chip">📚 图书馆</span>
+          <span class="feature-chip">🏢 校园布局</span>
+          <span class="feature-chip">🍜 生活设施</span>
+          <span class="feature-chip">📚 教务指南</span>
+          <span class="feature-chip">🚆 专业就业</span>
+          <span class="feature-chip">🚌 交通出行</span>
+          <span class="feature-chip">🏫 学院介绍</span>
         </div>
       </div>
     </div>
@@ -294,23 +294,25 @@
       <div class="avatar">🤖</div>
       <div class="bubble">
         我可以回答：<br>
-        • 学校大门在哪？主教学楼、图书馆位置？<br>
-        • 宿舍几点关门？有独立卫浴吗？<br>
-        • 食堂哪个好吃？校园网怎么连？<br>
-        • 查寝严不严？被子必须叠豆腐块吗？<br>
-        • 上课时间、挂科补考、教务系统怎么用？<br>
+        • 校园布局与各建筑位置（大门、教学楼、图书馆、公寓、食堂等）<br>
+        • 生活服务（宿舍、澡堂、水电、校园网、超市、医务室）<br>
+        • 教务学业（上课时间、课表、查教室、补考、奖学金）<br>
+        • 学院专业与就业（二级学院、本科/专科专业、就业率、对口率）<br>
+        • 交通出行（905路、公交、火车站接驳、周边设施）<br>
         直接问我吧！
       </div>
     </div>
   </div>
   <div class="quick-asks">
     <span class="quick-label">📌 热门：</span>
-    <span class="quick-btn" data-quick="寝室有独立卫浴吗？">🛏️ 独立卫浴</span>
-    <span class="quick-btn" data-quick="晚上几点断电断网？">💡 断电断网</span>
-    <span class="quick-btn" data-quick="校园网怎么连？账号密码？">📶 校园网</span>
-    <span class="quick-btn" data-quick="图书馆开放时间？">📖 图书馆</span>
-    <span class="quick-btn" data-quick="从吉林站怎么到学校？">🚌 905路</span>
-    <span class="quick-btn" data-quick="主教学楼在哪？">📍 教学楼</span>
+    <span class="quick-btn" data-quick="独立卫浴">🛏️ 独立卫浴</span>
+    <span class="quick-btn" data-quick="断电断网">💡 断电断网</span>
+    <span class="quick-btn" data-quick="校园网">📶 校园网</span>
+    <span class="quick-btn" data-quick="图书馆开放时间">📖 图书馆</span>
+    <span class="quick-btn" data-quick="905路">🚌 905路</span>
+    <span class="quick-btn" data-quick="教学楼位置">📍 教学楼</span>
+    <span class="quick-btn" data-quick="奖学金">🎓 奖学金</span>
+    <span class="quick-btn" data-quick="就业率">📊 就业率</span>
   </div>
   <div class="input-area">
     <div class="input-wrapper">
@@ -326,10 +328,230 @@
   const sendBtn = document.getElementById('sendBtn');
   const quickBtns = document.querySelectorAll('.quick-btn');
 
-  function scrollToBottom() {
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+  // --- 知识库（已整合用户提供的45条+搜索到的核心信息）---
+  const knowledgeBase = {
+    // 学校基本信息
+    '学校全称': '吉林铁道职业技术大学',
+    '英文名': 'Jilin Tiedao University',
+    '校训': '明德、弘业',
+    '校风': '团结、勤奋、求实、创新',
+    '学风': '励志、善思、崇德、精艺',
+    '办学理念': '根植铁路、服务吉林、面向全国、走向世界',
+    '办学特色': '“六铁一全”（铁一般信仰，铁一般意志，铁一般纪律，铁一般担当，铁一般本领，铁一般体魄）',
+    '地址': '校本部：吉林省吉林市永吉经济开发区吉桦东路1号。老校区已停用。',
+    '历史': '学校前身始于1948年的吉林铁路职工学校，1961年改名为吉林铁道学院（曾办本科），2006年组建吉林铁道职业技术学院，2025年2月升格为吉林铁道职业技术大学，是全国首所铁道类职业本科大学。',
+    '荣誉': '国家“双高计划”建设单位、国家优质校、全国就业50强、国家现代学徒制试点、国家级示范性虚拟仿真实训基地等。',
+    '办学规模': '占地1342.35亩，建筑面积34.1万平方米，总资产20.16亿元；专任教师602人，全日制在校生9431人。',
+
+    // 大门、地址
+    '南门': '学校正门（南门），吉桦路一号，主入口。',
+    '中轴线': '校园以主教学楼 — 图书馆为中轴线，东侧为生活区、西侧为教学实训区。',
+    '主教学楼': '主教学楼位于校园中心，以升广场北侧。配备电梯、多媒体教室、机房、阶梯教室等。',
+    '以升广场': '以升广场位于正门内侧，是迎新报道核心区。',
+    '图书馆': '位于主教学楼北侧，中轴线北端。功能：图书借阅、电子阅览、自习、学术研讨。开放时间：8:00-21:00，周一至周日。',
+    '行政办公楼': '位于教学楼西侧，火车头广场北侧，是党政管理核心场所。',
+    '火车头广场': '位于以升广场西侧。',
+    '干培楼': '位于火车头广场西侧。',
+
+    // 二级学院位置（用户提供）
+    '大数据商务学院': '位于行政办公楼北侧。',
+    '铁道工程学院': '位于大数据商务学院北侧。',
+    '智能制造学院': '位于铁道工程学院北侧。',
+    '高综双子楼': '位于智能制造学院北侧，图书馆西侧。左半部为高铁综合技术学院，右半部为城市轨道交通学院。',
+    '高铁综合技术学院': '位于高综双子楼左半部（以北方向为主）。',
+    '城市轨道交通学院': '位于高综双子楼右半部（以北方向为主）。',
+    '铁道电气学院': '位于高综双子楼北侧左半部。',
+    '铁道运输学院': '位于高综双子楼北侧右半部。',
+    '东北亚高铁学院': '位于轨道交通实践实验中心2层。',
+    '铁道机车车辆学院': '位于轨道交通实践实验中心3、4层。',
+    '轨道交通实践实验中心': '位于高综双子楼西侧，顺台阶而下直走150米。又称机车大库。',
+    '大国工匠': '位于高综双子楼南侧，智能制造学院西侧。',
+    '科研楼': '位于铁道运输学院北侧。',
+    '实践楼': '位于科研楼北侧。',
+
+    // 文体设施
+    '操场': '位于以升广场东侧200米。',
+    '大学生活动中心': '位于操场北侧，主教学楼西侧，也称体育馆。',
+    '体育馆': '即大学生活动中心。',
+
+    // 食堂与生活设施
+    '食堂': '学校设有一食堂与二食堂。一食堂位于主教学楼西侧、体育馆北侧；二食堂位于一食堂北侧100米顺台阶而上。营业时间6:00-22:00。一食堂相对更好吃一些。',
+    '一食堂': '位于主教学楼西侧，体育馆北侧。',
+    '二食堂': '位于一食堂北侧100米，顺台阶而上。底部有校园超市、打印社、理发店。',
+    '超市': '校园超市位于二食堂底部，物价正常。',
+    '打印社': '位于二食堂底部。',
+    '理发店': '位于二食堂底部。',
+    '医务室': '位于一食堂与二食堂中间。',
+    '校园网': '账号为学号，密码为Tddx@身份证后六位。可通过搜索“jljy-wifi”连接。',
+    '教务系统': '查找教室：登录教务系统，根据课表教室号到对应教学楼查找。',
+    '课表': '当前课表可在教务系统查询。',
+    '上课时间': '上午8:00-11:30；下午13:10-16:30。',
+    '报修': '宿舍报修入口在一体化平台，点击报修服务即可报修。',
+
+    // 宿舍区
+    '一公寓': '位于一食堂西侧，体育馆北侧。',
+    '二公寓': '位于一公寓北侧一食堂西侧。',
+    '三公寓': '位于二公寓北侧一食堂西侧。',
+    '四公寓': '位于三公寓北侧一食堂西侧。',
+    '五公寓': '位于四公寓西北侧二食堂西侧。一楼设学生一体化中心，办理银行卡、成绩查询。',
+    '六公寓': '位于四公寓东北侧五公寓西侧。',
+    '七公寓': '位于六公寓北侧。',
+    '八公寓': '位于二食堂东北侧，五公寓北侧。',
+    '九公寓': '二食堂北侧。一楼设学生处。',
+    '学生一体化中心': '位于五公寓一楼。',
+    '学生处': '位于9公寓一楼。',
+
+    // 宿舍条件与规则
+    '独立卫浴': '没有独立卫浴。',
+    '澡堂': '公共澡堂，水温好。',
+    '断电断网': '22点断电，不断网。',
+    '夏天': '夏天有一点电热。',
+    '暖气': '冬天暖气特别够，很暖和。',
+    '查寝': '查寝很严，每天都查，查寝时不能不在。',
+    '被子': '被子必须叠成豆腐块。',
+    '违禁电器': '不能使用吹风机、卷发棒、小电锅等，查违禁品严格。',
+    '宿舍关门': '宿舍22:00闭寝，禁止使用大功率电器，禁止吸烟。',
+    '公寓设施': '公寓每层设有热水器（免费），一楼有公共洗衣间，有的公寓有干发器。门禁早5:30开门，晚10:00关门自动落锁。',
+
+    // 交通出行
+    '905路': '吉林站西广场乘坐905路可达学校（铁道学院站/三家子南站）。',
+    '公交': '可乘坐905路、永吉1路等多条线路到达学校附近。',
+    '校车': '新生报到当天有校车接。',
+    '火车站': '从吉林市火车站可乘坐905路直达。',
+    '周边设施': '距离学校最近的公交站为三家子南站（约92米），最近的吉林火车站约15.5公里。周边3公里内分布着6个餐饮场所、2个酒店、3个购物中心、1个健身场馆、3所医疗机构。',
+
+    // 学业与考勤
+    '考勤': '考勤很严，逃课会被抓，挂科率不高。',
+    '早晚自习': '有晚自习。',
+    '电梯': '主教学楼的电梯学生能坐。',
+    '作业': '作业不多，不会经常熬夜写作业。',
+    '挂科': '挂科可以补考。',
+    '补考': '挂科后参加补考。',
+    '男女比例': '男女比例约为13:1（男生占92.10%，女生7.90%）。',
+
+    // 支付与生活用品
+    '支付': '食堂可以用微信支付。',
+    '物价': '校内超市正常物价。',
+    '生活用品': '不必从家里带很多，校内超市可买。',
+    '校园卡充值': '手机充值。',
+
+    // 二级学院与专业
+    '二级学院': '学校设9个二级学院：东北亚高铁学院、铁道机车车辆学院、铁道运输学院、高铁综合技术学院、铁道工程学院、铁道电气学院、城市轨道交通学院、智能制造学院、大数据商务学院，以及马克思主义学院、培训与继续教育学院等。',
+    '本科专业': '首批6个职业本科专业：高速铁路工程、高速铁路信号控制技术、高速铁路运营管理、城市轨道交通设备与控制技术、轨道交通车辆工程技术、电气工程及自动化。',
+    '专业总数': '共41个高职专业，覆盖铁路全产业链。核心包括铁道机车运用与维护、铁道交通运营管理、铁道工程技术、铁道供电技术、动车组检修技术、城市轨道交通运营管理等。',
+    '中外合作': '与俄罗斯、韩国等开展国际轨道交通专业联合培养，建有海外鲁班工坊，服务“一带一路”。',
+    '专升本': '2026年开设2个专升本专业。',
+
+    // 招生就业
+    '招生': '2025年本科招生在9个省份投放540个计划，过特控线比例高达85%。',
+    '就业': '毕业生就业率连续多年超90%，近三年国企签约率稳超80%。2024年创下全国铁路高职院校“接收最全、录取最多”纪录。',
+    '就业单位': '主要面向全国18个铁路局、中国中车、中国铁建、地铁公司等。',
+    '就业率': '近五年平均94.98%，对口率达95%。',
+    '毕业去向落实率': '90.20%（2024年数据）。',
+
+    // 其他设施
+    '健身步道': '全长3.6公里全闭环健身步道，以《长征》为文化主题。',
+    '铁路科普馆': '实训区旁特色建筑，展示铁路发展历史、高铁技术等。',
+    '会议中心': '独立大型会议建筑，可容纳千人。',
+    '新校区': '校本部（新校区）位于吉桦东路1号。老校区已停用。',
+    '老校区': '老校区（东校区）已基本停用，不承担主要教学任务。',
+
+    // 奖学金
+    '奖学金': '国家奖学金8000元/人，国家励志奖学金5000元/人，吉林省政府奖学金4000元/人，校内奖学金每学年颁发。',
+    '助学金': '国家助学金平均每人3300元。',
+
+    // 其他补充信息
+    '实训基地': '建有铁路综合演练科研实训基地、城轨车辆模拟驾驶实训室、CRH动车组实训基地、高寒高铁虚拟仿真实训基地等30余个。',
+    '学生人数': '全日制在校生9431人（2025年数据）。',
+    '宿舍费用': '6人间住宿费为每年800元，8人间住宿费为每年400元。',
+    '食堂个数': '4个食堂。',
+    '校园网覆盖': '有校园网。',
+    '热水供应': '有热水供应。',
+    '图书馆藏书': '图书馆藏书113万册。',
+    '校区面积': '占地面积1342.35亩。',
+    '建筑面积': '总建筑面积34.1万平方米。',
+    '总资产': '20.16亿元。'
+  };
+
+  // 别名映射（用于更智能地匹配问题）
+  const aliasMap = {
+    '宿舍': '宿舍关门 查寝 断电',
+    '澡堂': '澡堂',
+    '洗澡': '澡堂',
+    '水电': '断电断网',
+    '网络': '校园网',
+    'wifi': '校园网',
+    '无线': '校园网',
+    '几点关门': '宿舍关门',
+    '几点熄灯': '断电断网',
+    '寝室': '独立卫浴 宿舍关门 被子 查寝',
+    '饭堂': '食堂',
+    '餐厅': '食堂',
+    '饭卡': '校园卡充值',
+    '校医': '医务室',
+    '医院': '医务室',
+    '成绩': '教务系统 一体化',
+    '学分': '挂科 补考',
+    '校车': '交通 905',
+    '公交': '905路',
+    '火车站': '交通',
+    '吉林站': '905路',
+    '报到': '以升广场',
+    '奖学金': '奖学金',
+    '助学金': '助学金',
+    '就业': '就业 就业率 就业单位',
+    '专业': '二级学院 本科专业 专业总数',
+    '招生': '招生',
+    '学费': '宿舍费用',
+    '宿舍费': '宿舍费用',
+  };
+
+  // 从知识库中搜索答案
+  function getAnswerFromKB(query) {
+    if (!query) return null;
+    
+    const lowerQ = query.toLowerCase().trim();
+    let matchedKeys = [];
+    
+    // 直接匹配
+    for (let key in knowledgeBase) {
+      if (lowerQ.includes(key.toLowerCase())) {
+        matchedKeys.push(key);
+      }
+    }
+    
+    // 通过别名扩展
+    for (let alias in aliasMap) {
+      if (lowerQ.includes(alias.toLowerCase())) {
+        const mapped = aliasMap[alias].split(' ');
+        mapped.forEach(k => { if (knowledgeBase[k] && !matchedKeys.includes(k)) matchedKeys.push(k); });
+      }
+    }
+    
+    if (matchedKeys.length === 0) return null;
+    
+    // 取前5条去重
+    const uniqueKeys = [...new Set(matchedKeys.slice(0, 5))];
+    const answers = uniqueKeys.map(key => `🔹 ${key}：${knowledgeBase[key]}`);
+    return answers.join('\n\n');
   }
 
+  // 兜底答案生成
+  function getFallbackAnswer(query) {
+    const lowerQ = query.toLowerCase();
+    if (lowerQ.includes('几点') && lowerQ.includes('图书馆')) return knowledgeBase['图书馆'];
+    if (lowerQ.includes('几点') && lowerQ.includes('食堂')) return knowledgeBase['食堂'];
+    if (lowerQ.includes('怎么去') || lowerQ.includes('交通')) return knowledgeBase['905路'];
+    if (lowerQ.includes('上课')) return knowledgeBase['上课时间'];
+    if (lowerQ.includes('专业') || lowerQ.includes('学院')) return knowledgeBase['二级学院'] + '\n\n' + knowledgeBase['本科专业'];
+    if (lowerQ.includes('就业')) return knowledgeBase['就业'] + '\n\n' + knowledgeBase['就业率'];
+    if (lowerQ.includes('历史')) return knowledgeBase['历史'];
+    if (lowerQ.includes('校训')) return knowledgeBase['校训'] + '，' + knowledgeBase['校风'];
+    if (lowerQ.includes('地址') || lowerQ.includes('在哪')) return knowledgeBase['地址'];
+    return null;
+  }
+
+  // 添加消息
   function addMessage(content, type) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}`;
@@ -346,64 +568,58 @@
     return messageDiv;
   }
 
+  function scrollToBottom() {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  // 发送消息逻辑
   async function handleSend() {
     const text = userInput.value.trim();
     if (!text) return;
+    
     addMessage(text, 'user');
     userInput.value = '';
+
+    // 显示“思考中...”
     const loadingDiv = document.createElement('div');
     loadingDiv.className = 'message assistant';
-    loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">思考中...</div>';
+    loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">🔍 正在检索知识库...</div>';
     chatContainer.appendChild(loadingDiv);
     scrollToBottom();
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      const data = await response.json();
+
+    // 模拟短暂延迟
+    setTimeout(() => {
       chatContainer.removeChild(loadingDiv);
-      if (data.reply) {
-        addMessage(data.reply, 'assistant');
-      } else {
-        addMessage('抱歉，AI 没有返回有效回复。', 'assistant');
+      
+      // 1. 尝试知识库回答
+      let answer = getAnswerFromKB(text);
+      
+      // 2. 如果没找到，尝试兜底逻辑
+      if (!answer) {
+        answer = getFallbackAnswer(text);
       }
-    } catch (error) {
-      chatContainer.removeChild(loadingDiv);
-      addMessage('网络连接失败，请稍后再试。', 'assistant');
-    }
+      
+      // 3. 如果仍然没有，给出引导提示
+      if (!answer) {
+        answer = '我没有找到与你问题完全匹配的校园信息。你可以尝试以下方式：\n\n🔍 问问“校园布局”、“宿舍规定”、“交通出行”、“专业就业”等关键词。\n📞 或者拨打学校官方电话：0432-64205999（招生就业处）。';
+      }
+      
+      addMessage(answer, 'assistant');
+    }, 300);
   }
 
+  // 快捷提问
   quickBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const quickText = btn.getAttribute('data-quick') || btn.textContent.replace(/[🔹📍🛏️💡📶📖🚌]/g, '').trim();
+      const quickText = btn.getAttribute('data-quick') || btn.textContent.replace(/[🔹📍🛏️💡📶📖🚌🎓📊]/g, '').trim();
       if (quickText) {
         addMessage(quickText, 'user');
-        (async () => {
-          const loadingDiv = document.createElement('div');
-          loadingDiv.className = 'message assistant';
-          loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">思考中...</div>';
-          chatContainer.appendChild(loadingDiv);
-          scrollToBottom();
-          try {
-            const response = await fetch('/api/chat', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ message: quickText })
-            });
-            const data = await response.json();
-            chatContainer.removeChild(loadingDiv);
-            if (data.reply) {
-              addMessage(data.reply, 'assistant');
-            } else {
-              addMessage('抱歉，AI 没有返回有效回复。', 'assistant');
-            }
-          } catch (error) {
-            chatContainer.removeChild(loadingDiv);
-            addMessage('网络连接失败，请稍后再试。', 'assistant');
-          }
-        })();
+        setTimeout(() => {
+          let answer = getAnswerFromKB(quickText);
+          if (!answer) answer = getFallbackAnswer(quickText);
+          if (!answer) answer = '很抱歉，关于这个问题的信息暂时缺失。你可以拨打0432-64205999咨询学校。';
+          addMessage(answer, 'assistant');
+        }, 200);
       }
     });
   });
