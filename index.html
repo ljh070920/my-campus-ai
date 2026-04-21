@@ -664,7 +664,6 @@ body {
     addMessage(text, 'user');
     userInput.value = '';
 
-    // 显示“思考中...”提示
     const loadingDiv = document.createElement('div');
     loadingDiv.className = 'message assistant';
     loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">思考中...</div>';
@@ -672,26 +671,66 @@ body {
     scrollToBottom();
 
     try {
-        // 调用 Vercel 后端路由
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text })
         });
-        
         const data = await response.json();
         chatContainer.removeChild(loadingDiv);
-        
         if (data.reply) {
             addMessage(data.reply, 'assistant');
         } else {
-            addMessage('抱歉，AI 没有返回有效回复，请稍后再试。', 'assistant');
+            addMessage('抱歉，AI 没有返回有效回复。', 'assistant');
         }
     } catch (error) {
         chatContainer.removeChild(loadingDiv);
-        addMessage('网络连接失败，请检查网络或稍后再试。', 'assistant');
-        console.error('请求出错:', error);
+        addMessage('网络连接失败，请稍后再试。', 'assistant');
     }
 }
+
+// 快捷提问
+quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const quickText = btn.getAttribute('data-quick') || btn.textContent.replace(/[🔹📍🛏️💡📶📖🚌]/g, '').trim();
+        if (quickText) {
+            addMessage(quickText, 'user');
+            (async () => {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'message assistant';
+                loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">思考中...</div>';
+                chatContainer.appendChild(loadingDiv);
+                scrollToBottom();
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: quickText })
+                    });
+                    const data = await response.json();
+                    chatContainer.removeChild(loadingDiv);
+                    if (data.reply) {
+                        addMessage(data.reply, 'assistant');
+                    } else {
+                        addMessage('抱歉，AI 没有返回有效回复。', 'assistant');
+                    }
+                } catch (error) {
+                    chatContainer.removeChild(loadingDiv);
+                    addMessage('网络连接失败，请稍后再试。', 'assistant');
+                }
+            })();
+        }
+    });
+});
+
+sendBtn.addEventListener('click', handleSend);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSend();
+    }
+});
+
+scrollToBottom();
 </script></body>
 </html>
