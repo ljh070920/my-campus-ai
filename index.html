@@ -2,297 +2,97 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>吉铁大 · AI助手（混合版）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>吉铁大·DeepSeek对话</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      background: #f3f5f9;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-    }
-    .app {
-      max-width: 600px;
-      width: 100%;
-      height: 780px;
-      background: #fff;
-      border-radius: 36px;
-      box-shadow: 0 25px 50px -8px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .header {
-      padding: 18px 20px 8px;
-      border-bottom: 1px solid #eff1f4;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .header h1 {
-      font-size: 20px;
-      font-weight: 650;
-      background: linear-gradient(135deg, #1a3e6f, #2563ab);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .badge {
-      background: #eef2ff;
-      color: #1e4a7a;
-      padding: 4px 10px;
-      border-radius: 40px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .chat-container {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      background: #fafbfc;
-    }
-    .message {
-      display: flex;
-      gap: 10px;
-    }
-    .message.user {
-      flex-direction: row-reverse;
-    }
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 40px;
-      background: #e4e9f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .message.user .avatar {
-      background: #1a3e6f;
-      color: white;
-    }
-    .bubble {
-      background: white;
-      padding: 14px 16px;
-      border-radius: 20px;
-      border-top-left-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-      border: 1px solid #eceff4;
-      max-width: 85%;
-      font-size: 14.5px;
-      line-height: 1.5;
-    }
-    .message.user .bubble {
-      background: #1a3e6f;
-      color: white;
-      border: none;
-      border-top-right-radius: 6px;
-      border-top-left-radius: 20px;
-    }
-    .quick-asks {
-      padding: 10px 16px;
-      border-top: 1px solid #eef1f6;
-      background: white;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .quick-btn {
-      background: #f2f5f9;
-      border: 0.5px solid #d9e2ec;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 13px;
-      color: #1e3a5f;
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .input-area {
-      padding: 12px 16px 18px;
-      background: white;
-      border-top: 1px solid #eef2f6;
-      display: flex;
-      gap: 8px;
-    }
-    .input-wrapper {
-      flex: 1;
-      background: #f2f6fa;
-      border-radius: 30px;
-      padding: 4px 4px 4px 18px;
-      display: flex;
-      align-items: center;
-      border: 1px solid #e2e9f2;
-    }
-    .input-wrapper input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      font-size: 15px;
-      padding: 12px 0;
-      outline: none;
-    }
-    .send-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 40px;
-      background: #1a3e6f;
-      border: none;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+    body { font-family: system-ui, sans-serif; background: #f3f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 12px; }
+    .app { max-width: 600px; width: 100%; height: 700px; background: white; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+    .header { padding: 20px; border-bottom: 1px solid #eee; font-weight: 600; color: #1a3e6f; }
+    .chat-box { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #fafbfc; }
+    .message { display: flex; gap: 10px; }
+    .message.user { flex-direction: row-reverse; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #e4e9f2; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .message.user .avatar { background: #1a3e6f; color: white; }
+    .bubble { background: white; padding: 12px 16px; border-radius: 20px; border-top-left-radius: 6px; max-width: 80%; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #eceff4; }
+    .message.user .bubble { background: #1a3e6f; color: white; border: none; border-top-right-radius: 6px; border-top-left-radius: 20px; }
+    .input-area { padding: 16px; border-top: 1px solid #eee; display: flex; gap: 10px; background: white; }
+    .input-area input { flex: 1; padding: 14px 18px; border: 1px solid #e2e9f2; border-radius: 40px; outline: none; font-size: 15px; background: #f8fafc; }
+    .input-area button { width: 54px; height: 54px; border-radius: 50%; background: #1a3e6f; color: white; border: none; font-size: 22px; cursor: pointer; }
   </style>
 </head>
 <body>
 <div class="app">
-  <div class="header">
-    <h1>🚞 吉铁大·AI助手</h1>
-    <span class="badge">本地+DeepSeek</span>
-  </div>
-  <div class="chat-container" id="chatContainer">
+  <div class="header">🚞 吉铁大·DeepSeek 智能助手</div>
+  <div class="chat-box" id="chatBox">
     <div class="message assistant">
       <div class="avatar">🤖</div>
-      <div class="bubble">
-        👋 你好！我是校园AI助手（混合版）。<br><br>
-        ✅ 优先用校内知识库精准回答<br>
-        ✨ 不知道的会问 DeepSeek 大模型<br><br>
-        直接问我吧！
-      </div>
+      <div class="bubble">你好！我是基于 DeepSeek 大模型的校园助手，直接问我任何问题吧！</div>
     </div>
-  </div>
-  <div class="quick-asks">
-    <span class="quick-btn" data-quick="独立卫浴">🛏️ 独立卫浴</span>
-    <span class="quick-btn" data-quick="断电断网">💡 断电断网</span>
-    <span class="quick-btn" data-quick="校园网">📶 校园网</span>
-    <span class="quick-btn" data-quick="图书馆开放时间">📖 图书馆</span>
-    <span class="quick-btn" data-quick="905路">🚌 905路</span>
-    <span class="quick-btn" data-quick="教学楼位置">📍 教学楼</span>
   </div>
   <div class="input-area">
-    <div class="input-wrapper">
-      <input type="text" id="userInput" placeholder="问点啥..." autocomplete="off" />
-    </div>
-    <button class="send-btn" id="sendBtn">↑</button>
+    <input type="text" id="userInput" placeholder="输入消息..." autocomplete="off" />
+    <button id="sendBtn">↑</button>
   </div>
 </div>
 <script>
-(function(){
-  const chatContainer = document.getElementById('chatContainer');
-  const userInput = document.getElementById('userInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const quickBtns = document.querySelectorAll('.quick-btn');
+  (function(){
+    // ---------- 这里替换成你的真实 API Key ----------
+    const DEEPSEEK_API_KEY = 'sk-fe91dee15fa4438c9b491faf1343b783';
+    
+    const chatBox = document.getElementById('chatBox');
+    const input = document.getElementById('userInput');
+    const btn = document.getElementById('sendBtn');
 
-  // ---------- 本地知识库（200+ 条） ----------
-  const knowledgeBase = {
-    // ... 这里是你原来的全部知识库内容，为节省篇幅此处省略，但实际使用时需完整保留 ...
-    // 为了演示，只保留几条示例，实际请用完整版知识库替换
-    '独立卫浴': '没有独立卫浴。',
-    '澡堂': '公共澡堂，水温好。',
-    '断电断网': '22点断电，不断网。',
-    '校园网': '账号为学号，密码为Tddx@身份证后六位。',
-    '图书馆': '位于主教学楼北侧，开放时间8:00-21:00，周一至周日。',
-    '905路': '吉林站西广场乘坐905路可达学校（铁道学院站）。',
-    '教学楼位置': '主教学楼位于校园中心，以升广场北侧。',
-  };
-
-  // 别名映射
-  const aliasMap = {
-    '宿舍': '宿舍关门 查寝 断电',
-    '洗澡': '澡堂',
-    'wifi': '校园网',
-    '无线': '校园网',
-    '几点关门': '宿舍关门',
-    '几点熄灯': '断电断网',
-  };
-
-  // 本地检索
-  function searchLocal(query) {
-    const q = query.toLowerCase();
-    let matched = [];
-    for (let key in knowledgeBase) {
-      if (q.includes(key.toLowerCase())) matched.push(key);
+    function addMessage(text, role) {
+      const div = document.createElement('div');
+      div.className = `message ${role}`;
+      div.innerHTML = `<div class="avatar">${role === 'user' ? '🧑' : '🤖'}</div><div class="bubble">${text.replace(/\n/g, '<br>')}</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return div;
     }
-    for (let alias in aliasMap) {
-      if (q.includes(alias.toLowerCase())) {
-        aliasMap[alias].split(' ').forEach(k => { if (knowledgeBase[k]) matched.push(k); });
+
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+      addMessage(message, 'user');
+      input.value = '';
+      
+      const loadingDiv = addMessage('思考中...', 'assistant');
+      
+      try {
+        const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: 'deepseek-chat',
+            messages: [
+              { role: 'system', content: '你是吉林铁道职业技术大学的校园AI助手，请友好准确地回答校园相关问题。' },
+              { role: 'user', content: message }
+            ],
+            stream: false
+          })
+        });
+        const data = await response.json();
+        loadingDiv.remove();
+        if (data.choices && data.choices[0]) {
+          addMessage(data.choices[0].message.content, 'assistant');
+        } else {
+          addMessage('API 返回异常：' + JSON.stringify(data), 'assistant');
+        }
+      } catch (error) {
+        loadingDiv.remove();
+        addMessage('网络错误：' + error.message, 'assistant');
       }
     }
-    if (matched.length === 0) return null;
-    const unique = [...new Set(matched.slice(0, 3))];
-    return unique.map(k => `🔹 ${k}：${knowledgeBase[k]}`).join('\n\n');
-  }
 
-  // 添加消息
-  function addMessage(content, type) {
-    const div = document.createElement('div');
-    div.className = `message ${type}`;
-    div.innerHTML = `<div class="avatar">${type==='user'?'🧑':'🤖'}</div><div class="bubble">${content.replace(/\n/g,'<br>')}</div>`;
-    chatContainer.appendChild(div);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-    return div;
-  }
-
-  // 发送消息（混合模式）
-  async function handleSend() {
-    const text = userInput.value.trim();
-    if (!text) return;
-    addMessage(text, 'user');
-    userInput.value = '';
-
-    // 显示思考中
-    const loadingDiv = addMessage('🤔 正在查找本地知识库...', 'assistant');
-
-    // 第一步：本地查找
-    const localAnswer = searchLocal(text);
-    if (localAnswer) {
-      loadingDiv.remove();
-      addMessage(localAnswer, 'assistant');
-      return;
-    }
-
-    // 第二步：本地没找到，调用 DeepSeek AI
-    loadingDiv.querySelector('.bubble').textContent = '🤔 本地未找到，正在问 AI 大脑...';
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      const data = await response.json();
-      loadingDiv.remove();
-      if (data.reply) {
-        addMessage(data.reply, 'assistant');
-      } else {
-        addMessage('抱歉，AI 也没有合适的回答。你可以拨打招生办电话 0432-64205999 咨询。', 'assistant');
-      }
-    } catch (error) {
-      loadingDiv.remove();
-      addMessage('网络好像不太稳定，请稍后再试。', 'assistant');
-    }
-  }
-
-  // 快捷提问
-  quickBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const q = btn.getAttribute('data-quick');
-      if (q) { userInput.value = q; handleSend(); }
-    });
-  });
-
-  sendBtn.addEventListener('click', handleSend);
-  userInput.addEventListener('keypress', e => { if(e.key==='Enter') handleSend(); });
-})();
+    btn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
+  })();
 </script>
 </body>
 </html>
