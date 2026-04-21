@@ -657,44 +657,41 @@ body {
       scrollToBottom();
     }
 
-    function handleSend() {
-      const text = userInput.value.trim();
-      if (!text) return;
-      
-      addMessage(text, 'user');
-      userInput.value = '';
-      
-      // 模拟短暂思考
-      setTimeout(() => {
-        const answer = generateAnswer(text);
-        addMessage(answer, 'assistant');
-      }, 200);
-    }
+    async function handleSend() {
+    const text = userInput.value.trim();
+    if (!text) return;
+    
+    addMessage(text, 'user');
+    userInput.value = '';
 
-    // 快捷提问
-    quickBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const quickText = btn.getAttribute('data-quick') || btn.textContent.replace(/[🔹📍🛏️💡📶📖🚌]/g, '').trim();
-        if (quickText) {
-          addMessage(quickText, 'user');
-          setTimeout(() => {
-            const ans = generateAnswer(quickText);
-            addMessage(ans, 'assistant');
-          }, 150);
-        }
-      });
-    });
-
-    sendBtn.addEventListener('click', handleSend);
-    userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleSend();
-      }
-    });
-
-    // 初始化滚动到底部
+    // 显示“思考中...”提示
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message assistant';
+    loadingDiv.innerHTML = '<div class="avatar">🤖</div><div class="bubble">思考中...</div>';
+    chatContainer.appendChild(loadingDiv);
     scrollToBottom();
-  })();
+
+    try {
+        // 调用 Vercel 后端路由
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        });
+        
+        const data = await response.json();
+        chatContainer.removeChild(loadingDiv);
+        
+        if (data.reply) {
+            addMessage(data.reply, 'assistant');
+        } else {
+            addMessage('抱歉，AI 没有返回有效回复，请稍后再试。', 'assistant');
+        }
+    } catch (error) {
+        chatContainer.removeChild(loadingDiv);
+        addMessage('网络连接失败，请检查网络或稍后再试。', 'assistant');
+        console.error('请求出错:', error);
+    }
+}
 </script></body>
 </html>
